@@ -1,9 +1,9 @@
 import {FaCloudMoon} from 'react-icons/fa'
-function Header() {
+function Header({mode, onclick}) {
     return(
-    <header className="fixedHead">
+    <header className={ mode ? 'fixedHead dark': 'fixedHead light'}>
         <p>Where in the world?</p>
-        <div className="mode"><FaCloudMoon/> Dark Mode</div>
+        <div className="mode" onClick={onclick}><FaCloudMoon/> Dark Mode</div>
       </header>
     )
 }

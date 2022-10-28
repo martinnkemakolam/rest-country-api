@@ -1,14 +1,14 @@
 
 import {FaSistrix} from 'react-icons/fa'
-function Home({map, findFunc, filterFunc}) {
+function Home({map, findFunc, filterFunc, mode}) {
     return(
         <>
         <div className="top">
           <div className='searchDiv'>
             <input onChange={findFunc} id='Search' type='search'></input>
-            <label htmlFor='Search'><FaSistrix style={{position: 'absolute', left: '10px', top: '7px'}}/></label>
+            <FaSistrix style={{position: 'absolute', left: '10px', top: '7px'}}/>
           </div>
-          <select onChange={filterFunc} for='lang'>
+          <select className={ mode? 'dark':'light'} onChange={filterFunc} for='lang'>
             <option value='Default'>Default</option>
             <option value='Africa'>Africa</option>
             <option value='Americas'>America</option>

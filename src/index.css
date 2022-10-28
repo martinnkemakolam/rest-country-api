@@ -1,11 +1,27 @@
-body{
-    margin: 0;
+.dark{
     background-color: hsl(207, 26%, 17%);
     color: white;
+}
+.light{
+    background-color: white;
+    color: #000;
+}
+.scale{
+    transform: scale(0.5);
+    transition: all 600ms;
+}
+#root{
+    background-color: inherit;
+    color: inherit;
+}
+body{
+    margin: 0;
     outline: none;
+    width: 100vw;
+    user-select: none;
 }
 .fixedHead{
-    width: 100vw;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -18,6 +34,7 @@ body{
 .fixedHead .mode{
     margin-right: 3%;
     text-align: center;
+    cursor: pointer;
 }
 .top{
     display: flex;
@@ -27,7 +44,7 @@ body{
 }
 .searchDiv{
     margin-left: 3%;
-    width: 200px;
+    width: fit-content;
     height: 30px;
     position: relative;
 }
@@ -43,9 +60,8 @@ body{
 }
 .top select{
     margin-right: 3%;
-    background-color: hsl(209, 23%, 22%);
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-    color: white;
+    color: inherit;
     height: 30px;
     width: 100px;
     box-sizing: content-box;
@@ -53,7 +69,6 @@ body{
     text-align: center;
 }
 option{
-    background-color: hsl(209, 23%, 22%);
     border-radius: none;
 }
 .country{
@@ -75,10 +90,10 @@ option{
     box-shadow: 2px 2px 10px 10px rgba(0, 0, 0, 0.2);
 }
 .countryDetails .detail{
+    border: 1px solid rgba(0, 0, 0, 0.2);
     padding: 10px 5px;
     height: fit-content;
     display: grid;
-    background-color: hsl(209, 23%, 22%);
 }
 .countryDetails .detail > *{
     margin-left: 20px;
@@ -86,16 +101,73 @@ option{
 .detail span{
     margin-bottom: 5px;
 }
+.slide button{
+    padding: 5px 30px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
 .slide{
-    background-color: hsl(207, 26%, 17%);
+    transition: all 300ms;
     z-index: 1;
     width: 100vw;
     height: 100vh;
     position: fixed;
-    left: 100%;
+    left: -100%;
+    background-color: inherit;
     top: 0;
 }
 .slide.active{
     left: 0;
     top: 0;
+}
+.countryPersonalInfo{
+    margin: 40px auto;
+    height: 60vh;
+    width: 90vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+}
+.countryPersonalInfo img{
+    width: 90%;
+}
+.countryInfo{
+    display: flex;
+    gap:  20px;
+}
+@media (max-width: 750px) {
+    .slide{
+        overflow:scroll;
+    }
+    .country{
+        grid-template-columns: 29% 29% 29%;
+    }
+    .countryPersonalInfo{
+        grid-template-columns: 1fr;
+    }
+    .countryPersonalInfo img{
+        width: 90%;
+    }
+    .countryInfo{
+        display: flex;
+        flex-direction: column;
+    }
+}
+@media (max-width: 500px) {
+    .country{
+        grid-template-columns: 80%;
+    }
+    .top{
+        grid-template-columns: 1fr;
+        display: grid;
+        justify-content: center;
+        justify-items: center;
+    }
+    .top select{
+        margin: 0;
+    }
+    .searchDiv{
+        margin: 0;
+    }
 }

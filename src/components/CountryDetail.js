@@ -1,8 +1,9 @@
-function CountryDetail({country, className, onClick}) {
-
+function CountryDetail({country, className, onClick, countryArray}) {
+  console.log(country)
     let linkButton = typeof(country.borders) === 'object' ? country.borders.map((value, id)=>{
+      let newCountry = countryArray.filter((ele)=> ele.cca3 === value)
         return(
-            <button key={id}>{value}</button>
+            <button key={id} onClick={()=>{onClick(newCountry[0], 'slide active')}}>{value}</button>
         )
     }) : 'No boarder country' 
     let jsonMapper=(mapPath)=>{
@@ -42,7 +43,7 @@ function CountryDetail({country, className, onClick}) {
                         </div>
                     </div>
                     <div>
-                       <p>Border Countries: </p> {linkButton}
+                       <p>Border Countries: {linkButton}</p>
                     </div>
                 </div>
             </div>

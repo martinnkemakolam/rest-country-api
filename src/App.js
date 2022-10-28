@@ -11,6 +11,7 @@ class App extends React.Component{
     this.inputRef = react.createRef()
   }
   state ={
+    mode: true,
     arrayOfCountrie: [],
     filterByRegion: [],
     filterBol: false,
@@ -29,7 +30,6 @@ class App extends React.Component{
       }
     })
     .then((res)=>{
-      console.log(res[0])
       this.setState({
         arrayOfCountrie: res,
       })
@@ -65,6 +65,11 @@ class App extends React.Component{
       filterBol: true
     })
   }
+  modeChg=()=>{
+    this.setState({
+      mode: !this.state.mode
+    })
+  }
   find=(e)=>{
     if (e.target.value === '') {
       this.setState({
@@ -84,10 +89,16 @@ class App extends React.Component{
   }
 
   render(){
+    if (this.state.mode) {
+    document.getElementsByTagName('body')[0].classList.add('dark')
+    document.getElementsByTagName('body')[0].classList.remove('light')
+    }else{
+      document.getElementsByTagName('body')[0].classList.remove('dark')
+      document.getElementsByTagName('body')[0].classList.add('light')
+    }
     let slideClass = this.state.slideClassState
     let toggleClass=(current, arg)=>{
       this.setState({
-        toggleClass: !this.state.toggleClass,
         ready: true,
         slideJson: current,
         slideClassState: arg
@@ -96,14 +107,14 @@ class App extends React.Component{
     console.log(slideClass)
     let mapper = this.state.filterBol ? this.state.filterByRegion : this.state.arrayOfCountrie
     let map =  mapper.map((country, id)=>{
-        return <Country key={id} countryName={country.name.official} imgSrc={country.flags.png} countryCapital={country.capital} countryRegion={country.region} countryPopulation={country.population} currentJson={country} onClick={toggleClass}/>
+        return <Country key={id} countryName={country.name.official} imgSrc={country.flags.png} countryCapital={country.capital} countryRegion={country.region} countryPopulation={country.population} currentJson={country} mode={this.state.mode} onClick={toggleClass}/>
     })
 
     return (
       <>
-      <Header/>
-      <Home map={map} filterFunc={this.filter} findFunc={this.find}/>
-      { this.state.ready ? <CountryDetail country={this.state.slideJson} className={slideClass} onClick={toggleClass}/> : null}
+      <Header mode={this.state.mode} onclick={this.modeChg}/>
+      <Home map={map} filterFunc={this.filter} findFunc={this.find} mode={this.state.mode}/>
+      { this.state.ready ? <CountryDetail country={this.state.slideJson} className={slideClass} onClick={toggleClass} countryArray={this.state.arrayOfCountrie}/> : null}
       </>
     )
   }
